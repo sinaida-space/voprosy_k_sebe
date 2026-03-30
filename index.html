@@ -1,0 +1,2268 @@
+<!DOCTYPE html>
+<html lang="ru" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- SEO & LLM-readable meta -->
+  <title>От «Что же мне сделать?» до Вау-продукта — Creative Guide · sin.ai.da</title>
+  <meta name="description" content="Практический гайд по решению креативных задач: 9 методов мышления, 6 блокеров с нейронаукой, протоколы работы с AI. От диагноза до финальной идеи.">
+  <meta name="keywords" content="креативный процесс, методы мышления, 5 почему, 6 шляп, SCAMPER, блокеры творчества, AI как соавтор, sin.ai.da, sinaida">
+  <meta name="author" content="Sinaida Krivchenko · sin.ai.da">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://guide.sinaida.eu/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://guide.sinaida.eu/">
+  <meta property="og:title" content="От «Что же мне сделать?» до Вау-продукта">
+  <meta property="og:description" content="9 методов мышления, 6 блокеров с нейронаукой, протоколы AI-соавторства. Интерактивный гайд.">
+  <meta property="og:image" content="https://guide.sinaida.eu/og-image.jpg">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="sin.ai.da Creative Systems">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="От «Что же мне сделать?» до Вау-продукта">
+  <meta name="twitter:description" content="Интерактивный гайд по решению креативных задач · sin.ai.da">
+
+  <!-- Structured Data JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "От «Что же мне сделать?» до Вау-продукта",
+    "description": "Практический гайд по решению креативных задач: 9 методов мышления, 6 блокеров с нейронаукой, протоколы работы с AI как соавтором.",
+    "author": {
+      "@type": "Person",
+      "name": "Sinaida Krivchenko",
+      "url": "https://sinaida.eu",
+      "sameAs": ["https://instagram.com/sin.ai.da", "https://sinaida.eu"]
+    },
+    "inLanguage": "ru",
+    "teaches": ["Творческое мышление","Методы решения задач","Работа с AI"],
+    "url": "https://guide.sinaida.eu/",
+    "datePublished": "2026-01-01",
+    "publisher": {
+      "@type": "Organization",
+      "name": "sin.ai.da Creative Systems",
+      "url": "https://sinaida.eu"
+    }
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ── Reset & Base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #060608;
+      --red:      #E8003D;
+      --red-dim:  #8B0022;
+      --gold:     #C8A84B;
+      --gold-dim: #6B5820;
+      --cyan:     #00C8FF;
+      --cyan-dim: #005F78;
+      --white:    #F0EDE8;
+      --gray1:    #111115;
+      --gray2:    #1A1A20;
+      --gray3:    #2A2A35;
+      --gray4:    #555568;
+      --gray5:    #888899;
+      --font-display: 'Syne', sans-serif;
+      --font-mono:    'Space Mono', monospace;
+      --font-body:    'DM Sans', sans-serif;
+      --snap-height: 100dvh;
+    }
+
+    html {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+      height: 100%;
+    }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Custom Cursor ────────────────────────────────────────────────── */
+    #cursor {
+      position: fixed; top: 0; left: 0;
+      width: 12px; height: 12px;
+      background: var(--red);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.15s ease, background 0.2s;
+      mix-blend-mode: screen;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(232,0,61,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1), border-color 0.3s;
+    }
+
+    /* ── Three.js Canvas ─────────────────────────────────────────────── */
+    #bg-canvas {
+      position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Progress bar ────────────────────────────────────────────────── */
+    #progress-bar {
+      position: fixed; top: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--red), var(--gold));
+      z-index: 1000;
+      transition: width 0.1s linear;
+    }
+
+    /* ── Nav ─────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 900;
+      padding: 20px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(180deg, rgba(6,6,8,0.95) 0%, transparent 100%);
+      backdrop-filter: blur(0px);
+    }
+    .nav-logo {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--red);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-logo:hover { color: var(--gold); }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--gray5);
+      text-decoration: none;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      transition: color 0.3s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute;
+      bottom: -4px; left: 0; width: 0; height: 1px;
+      background: var(--red);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-burger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+      background: none; border: none;
+    }
+    .nav-burger span {
+      display: block; width: 24px; height: 1px;
+      background: var(--white);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    /* ── Section Base ────────────────────────────────────────────────── */
+    section {
+      position: relative;
+      min-height: var(--snap-height);
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+      z-index: 10;
+      display: flex; flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 48px;
+      width: 100%;
+    }
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .eyebrow::before {
+      content: '';
+      display: block; width: 32px; height: 1px;
+      background: var(--red);
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 80px);
+      font-weight: 800;
+      line-height: 1.0;
+      color: var(--white);
+      margin-bottom: 20px;
+    }
+    .section-desc {
+      font-size: 16px;
+      color: var(--gray5);
+      max-width: 640px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .red { color: var(--red); }
+    .gold { color: var(--gold); }
+    .cyan { color: var(--cyan); }
+
+    /* ── Reveal animations ───────────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.23,1,0.32,1),
+                  transform 0.8s cubic-bezier(0.23,1,0.32,1);
+    }
+    .reveal.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── HERO ─────────────────────────────────────────────────────────── */
+    #hero {
+      text-align: center;
+      justify-content: center; align-items: center;
+    }
+    .hero-glitch {
+      font-family: var(--font-display);
+      font-size: clamp(14px, 2vw, 22px);
+      color: var(--gray5);
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 9vw, 130px);
+      font-weight: 800;
+      line-height: 0.92;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+    .hero-title .accent { color: var(--red); display: block; }
+    .hero-sub {
+      font-size: clamp(14px, 1.5vw, 18px);
+      color: var(--gray5);
+      letter-spacing: 2px;
+      margin: 28px 0 52px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+    }
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 14px 32px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-cta::before {
+      content: '';
+      position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: var(--red);
+      transition: left 0.3s cubic-bezier(0.23,1,0.32,1);
+      z-index: -1;
+    }
+    .hero-cta:hover { color: var(--white); }
+    .hero-cta:hover::before { left: 0; }
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 32px; left: 50%; transform: translateX(-50%);
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--gray4);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: pulse-opacity 2s ease-in-out infinite;
+    }
+    @keyframes pulse-opacity {
+      0%,100% { opacity: 0.3; } 50% { opacity: 1; }
+    }
+
+    /* scanning line on hero */
+    .scan-line {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      animation: scan 4s linear infinite;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    @keyframes scan {
+      0% { top: 0%; } 100% { top: 100%; }
+    }
+
+    /* ── BLOCKER SECTION ─────────────────────────────────────────────── */
+    #blockers { min-height: auto; }
+    #blockers .section-inner { padding-top: 100px; padding-bottom: 60px; }
+
+    .blockers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .blocker-card {
+      position: relative;
+      background: var(--gray1);
+      border: 1px solid var(--gray3);
+      padding: 28px 24px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .blocker-card:hover { border-color: var(--red); z-index: 2; }
+    .blocker-card.open { border-color: var(--red); }
+
+    /* Glitch types */
+    .blocker-card[data-glitch="static"]::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .blocker-card[data-glitch="static"]:hover::before { opacity: 1; }
+
+    .blocker-card[data-glitch="double"]::after {
+      content: attr(data-num);
+      position: absolute; top: 20px; left: 24px;
+      font-family: var(--font-mono);
+      font-size: 48px; font-weight: 700;
+      color: var(--cyan); opacity: 0;
+      transform: translate(4px, -2px);
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .blocker-card[data-glitch="double"]:hover::after { opacity: 0.15; animation: glitch-shift 0.2s steps(2) infinite; }
+
+    .blocker-card[data-glitch="loop"] { animation: none; }
+    .blocker-card[data-glitch="loop"]:hover .blocker-num { animation: loop-spin 2s linear infinite; }
+
+    .blocker-card[data-glitch="signal"]::before {
+      content: ''; position: absolute; inset: 0;
+      background: repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(232,0,61,0.03) 3px, rgba(232,0,61,0.03) 4px);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .blocker-card[data-glitch="signal"]:hover::before { opacity: 1; }
+
+    @keyframes glitch-shift {
+      0% { transform: translate(4px,-2px); }
+      50% { transform: translate(-4px,2px); }
+      100% { transform: translate(4px,-2px); }
+    }
+    @keyframes loop-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); display: inline-block; }
+    }
+
+    .blocker-num {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--red);
+      letter-spacing: 2px;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .blocker-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .blocker-subtitle {
+      font-size: 12px;
+      color: var(--gray5);
+      font-style: italic;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+    .blocker-expand-btn {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--red);
+      letter-spacing: 2px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .blocker-expand-btn:hover { color: var(--gold); }
+
+    .blocker-detail {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.6s cubic-bezier(0.23,1,0.32,1);
+    }
+    .blocker-card.open .blocker-detail { max-height: 800px; }
+
+    .blocker-detail-inner { padding-top: 20px; }
+    .blocker-section-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      margin-top: 16px;
+    }
+    .blocker-neuro {
+      font-size: 13px;
+      color: var(--gray5);
+      line-height: 1.6;
+      border-left: 2px solid var(--cyan-dim);
+      padding-left: 12px;
+    }
+    .blocker-list {
+      list-style: none;
+      margin: 0; padding: 0;
+    }
+    .blocker-list li {
+      font-size: 12px;
+      color: var(--gray5);
+      padding: 4px 0;
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5;
+    }
+    .blocker-list li::before {
+      content: '—';
+      position: absolute; left: 0;
+      color: var(--red);
+    }
+    .blocker-list.exits li::before { content: '→'; color: #2A9A2A; }
+    .blocker-prompt {
+      margin-top: 12px;
+      background: rgba(0,200,255,0.04);
+      border: 1px solid var(--cyan-dim);
+      padding: 12px;
+    }
+    .blocker-prompt code {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--cyan);
+      line-height: 1.7;
+      display: block;
+    }
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 8px;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--gray4);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: none; border: none;
+      cursor: pointer;
+      transition: color 0.2s;
+      padding: 4px 0;
+    }
+    .copy-btn:hover { color: var(--cyan); }
+    .copy-btn.copied { color: var(--gold); }
+
+    /* ── METHODS SECTION ─────────────────────────────────────────────── */
+    #methods { min-height: auto; }
+    #methods .section-inner { padding-top: 80px; padding-bottom: 80px; }
+
+    .methods-nav {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 48px;
+    }
+    .method-tab {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1px solid var(--gray3);
+      color: var(--gray5);
+      background: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .method-tab:hover, .method-tab.active {
+      border-color: var(--red);
+      color: var(--white);
+      background: rgba(232,0,61,0.08);
+    }
+
+    .method-panel {
+      display: none;
+    }
+    .method-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+
+    .method-info {}
+    .method-cat {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--red);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .method-name {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .method-body {
+      font-size: 15px;
+      color: var(--gray5);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .method-when {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gold);
+      line-height: 1.6;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 12px;
+      margin-bottom: 20px;
+    }
+    .method-mode {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+    }
+    .mode-pencil { color: #4CAF50; }
+    .mode-llm { color: var(--cyan); }
+    .mode-both { color: var(--gold); }
+
+    .method-prompt-block {
+      background: rgba(0,200,255,0.04);
+      border: 1px solid var(--cyan-dim);
+      padding: 16px;
+      margin-top: 12px;
+    }
+    .method-prompt-label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      color: var(--cyan);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .method-prompt-text {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: rgba(0,200,255,0.8);
+      line-height: 1.7;
+    }
+
+    /* Method diagram area */
+    .method-diagram {
+      background: var(--gray1);
+      border: 1px solid var(--gray3);
+      min-height: 360px;
+      position: relative;
+      overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /* ── Why-Diagram ─────────────────────────────────────────────────── */
+    .diag-5why {
+      display: flex; flex-direction: column;
+      align-items: center; gap: 0; width: 100%; padding: 24px;
+    }
+    .why-node {
+      background: var(--gray2);
+      border: 1px solid var(--gray3);
+      border-left: 3px solid var(--red);
+      padding: 10px 16px;
+      width: 85%;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--gray5);
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.4s, transform 0.4s, border-color 0.3s;
+    }
+    .why-node.visible { opacity: 1; transform: translateY(0); }
+    .why-node.active { border-color: var(--red); color: var(--white); background: rgba(232,0,61,0.07); }
+    .why-arrow {
+      width: 1px; height: 20px;
+      background: linear-gradient(180deg, var(--red), var(--gray3));
+      margin: 2px auto;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .why-arrow.visible { opacity: 1; }
+
+    /* ── 6Hats Diagram ───────────────────────────────────────────────── */
+    .diag-6hats {
+      width: 100%; height: 320px;
+      position: relative;
+    }
+    .hat-item {
+      position: absolute;
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 2px solid transparent;
+      flex-direction: column; gap: 2px;
+    }
+    .hat-item:hover { transform: scale(1.15); }
+    .hat-item span { font-size: 7px; opacity: 0.7; }
+    .hat-white { background: rgba(240,237,232,0.1); border-color: var(--white); color: var(--white); }
+    .hat-red-c { background: rgba(232,0,61,0.15); border-color: var(--red); color: var(--red); }
+    .hat-black { background: rgba(50,50,60,0.6); border-color: var(--gray4); color: var(--gray5); }
+    .hat-yellow { background: rgba(200,168,75,0.15); border-color: var(--gold); color: var(--gold); }
+    .hat-green { background: rgba(76,175,80,0.15); border-color: #4CAF50; color: #4CAF50; }
+    .hat-blue { background: rgba(0,200,255,0.1); border-color: var(--cyan); color: var(--cyan); }
+
+    /* ── SCAMPER Diagram ─────────────────────────────────────────────── */
+    .diag-scamper {
+      width: 100%; height: 320px;
+      position: relative;
+    }
+    .scamper-orbit {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(232,0,61,0.15);
+      border-radius: 50%;
+      animation: orbit-spin 20s linear infinite;
+    }
+    .scamper-center {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 56px; height: 56px;
+      border: 2px solid var(--red);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 800; font-size: 14px;
+      color: var(--red);
+      background: rgba(232,0,61,0.08);
+      z-index: 2;
+    }
+    .scamper-node {
+      position: absolute;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: var(--gray2);
+      border: 1px solid var(--gray3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 11px; font-weight: 700;
+      color: var(--white);
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+      transform: translate(-50%, -50%);
+    }
+    .scamper-node:hover { border-color: var(--red); background: rgba(232,0,61,0.1); }
+    @keyframes orbit-spin { from { transform: translate(-50%,-50%) rotate(0); } to { transform: translate(-50%,-50%) rotate(360deg); } }
+
+    /* ── MindMap Diagram ─────────────────────────────────────────────── */
+    .diag-mindmap {
+      width: 100%; height: 320px; position: relative;
+    }
+    .diag-mindmap canvas { width: 100%; height: 100%; }
+
+    /* ── AI PROTOCOLS SECTION ────────────────────────────────────────── */
+    #protocols { min-height: auto; }
+    #protocols .section-inner { padding-top: 80px; padding-bottom: 80px; }
+
+    .protocols-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2px;
+      margin-top: 48px;
+    }
+    .protocol-card {
+      background: var(--gray1);
+      border: 1px solid var(--gray3);
+      border-left: 3px solid var(--red);
+      padding: 32px 28px;
+      transition: border-color 0.3s, background 0.3s;
+    }
+    .protocol-card:hover { background: rgba(232,0,61,0.03); border-top-color: var(--red); }
+    .protocol-num {
+      font-family: var(--font-mono);
+      font-size: 10px; color: var(--red);
+      letter-spacing: 2px; margin-bottom: 12px;
+    }
+    .protocol-title {
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 700;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .protocol-problem {
+      font-size: 13px; color: var(--gray5);
+      font-style: italic; margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .protocol-principle {
+      font-size: 14px; color: var(--gray5);
+      line-height: 1.6; margin-bottom: 16px;
+    }
+    .protocol-warning {
+      font-family: var(--font-mono);
+      font-size: 11px; color: var(--gold);
+      line-height: 1.5;
+      border-left: 2px solid var(--gold-dim);
+      padding-left: 10px;
+      margin-top: 12px;
+    }
+    .protocol-warning::before { content: '⚠  '; }
+
+    /* Central principle */
+    .central-principle {
+      background: rgba(232,0,61,0.04);
+      border: 1px solid var(--red-dim);
+      padding: 32px;
+      margin-bottom: 48px;
+      position: relative;
+    }
+    .central-principle::before {
+      content: 'ЦЕНТРАЛЬНЫЙ ПРИНЦИП';
+      font-family: var(--font-mono);
+      font-size: 9px; color: var(--red);
+      letter-spacing: 3px;
+      display: block; margin-bottom: 16px;
+    }
+    .central-principle p {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2.2vw, 22px);
+      font-weight: 700; color: var(--white);
+      line-height: 1.4;
+    }
+
+    /* ── ONE MORE THING ──────────────────────────────────────────────── */
+    #omt {
+      min-height: var(--snap-height);
+      background: var(--black);
+      position: relative;
+    }
+    .omt-header {
+      text-align: center;
+      padding: 80px 48px 40px;
+      position: relative; z-index: 20;
+    }
+    .omt-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 10px; color: var(--red);
+      letter-spacing: 6px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .omt-title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 8vw, 100px);
+      font-weight: 800; line-height: 0.9;
+      color: var(--white); margin-bottom: 20px;
+    }
+    .omt-desc {
+      font-size: 15px; color: var(--gray5);
+      max-width: 560px; margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .spotify-embed {
+      max-width: 400px; margin: 0 auto 48px;
+    }
+    .spotify-embed iframe { border-radius: 12px; }
+
+    /* Constellation canvas */
+    #constellation-canvas {
+      width: 100%;
+      height: 60vh;
+      display: block;
+      cursor: crosshair;
+      position: relative; z-index: 20;
+    }
+    .question-popup {
+      position: fixed;
+      background: rgba(6,6,8,0.95);
+      border: 1px solid var(--red);
+      padding: 20px 24px;
+      max-width: 340px;
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.3s, transform 0.3s;
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--white);
+    }
+    .question-popup.visible { opacity: 1; transform: translateY(0); }
+    .question-popup .q-group {
+      font-family: var(--font-mono);
+      font-size: 9px; color: var(--red);
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .omt-hint {
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 10px; color: var(--gray4);
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 16px; animation: pulse-opacity 2.5s ease-in-out infinite;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────────────────── */
+    footer {
+      scroll-snap-align: start;
+      background: var(--gray1);
+      border-top: 1px solid var(--gray3);
+      padding: 60px 48px 40px;
+      position: relative; z-index: 10;
+    }
+    .footer-grid {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px; margin-bottom: 60px;
+    }
+    .footer-brand {}
+    .footer-logo {
+      font-family: var(--font-mono);
+      font-size: 11px; color: var(--red);
+      letter-spacing: 4px; text-transform: uppercase;
+      margin-bottom: 16px; display: block;
+    }
+    .footer-tagline {
+      font-size: 13px; color: var(--gray5);
+      line-height: 1.6; max-width: 320px;
+      margin-bottom: 24px;
+    }
+    .footer-links-title {
+      font-family: var(--font-mono);
+      font-size: 9px; color: var(--gray4);
+      letter-spacing: 3px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 8px; }
+    .footer-links a {
+      font-size: 13px; color: var(--gray5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--red); }
+    .footer-bottom {
+      max-width: 1200px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      border-top: 1px solid var(--gray3); padding-top: 24px;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 10px; color: var(--gray4);
+      letter-spacing: 1px;
+    }
+    .footer-legal-links { display: flex; gap: 20px; }
+    .footer-legal-links a {
+      font-family: var(--font-mono);
+      font-size: 9px; color: var(--gray4);
+      text-decoration: none; letter-spacing: 1px;
+      transition: color 0.2s;
+    }
+    .footer-legal-links a:hover { color: var(--white); }
+
+    /* ── GDPR Cookie Banner ──────────────────────────────────────────── */
+    #cookie-banner {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--gray1);
+      border-top: 1px solid var(--gray3);
+      padding: 20px 48px;
+      z-index: 990;
+      display: flex; align-items: center;
+      justify-content: space-between; gap: 24px;
+      flex-wrap: wrap;
+      transform: translateY(100%);
+      transition: transform 0.5s cubic-bezier(0.23,1,0.32,1);
+    }
+    #cookie-banner.visible { transform: translateY(0); }
+    .cookie-text {
+      font-size: 13px; color: var(--gray5);
+      flex: 1; min-width: 200px; line-height: 1.5;
+    }
+    .cookie-text a { color: var(--cyan); text-decoration: none; }
+    .cookie-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .cookie-btn {
+      font-family: var(--font-mono);
+      font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 10px 20px; cursor: pointer;
+      border: 1px solid var(--gray3);
+      transition: all 0.2s;
+      background: none;
+    }
+    .cookie-btn.accept {
+      background: var(--red); border-color: var(--red);
+      color: var(--white);
+    }
+    .cookie-btn.accept:hover { background: #ff1a50; }
+    .cookie-btn.necessary { color: var(--gray5); }
+    .cookie-btn.necessary:hover { border-color: var(--white); color: var(--white); }
+
+    /* ── MOBILE NAV OVERLAY ──────────────────────────────────────────── */
+    .mobile-nav-overlay {
+      position: fixed; inset: 0;
+      background: rgba(6,6,8,0.98);
+      z-index: 800;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 32px;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.23,1,0.32,1);
+    }
+    .mobile-nav-overlay.open { transform: translateX(0); }
+    .mobile-nav-overlay a {
+      font-family: var(--font-display);
+      font-size: 28px; font-weight: 700;
+      color: var(--white); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .mobile-nav-overlay a:hover { color: var(--red); }
+
+    /* ── Toast notification ──────────────────────────────────────────── */
+    .toast {
+      position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+      background: var(--gray2); border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 2px; text-transform: uppercase;
+      padding: 10px 20px;
+      opacity: 0; transition: opacity 0.3s, transform 0.3s;
+      z-index: 9990; pointer-events: none;
+      white-space: nowrap;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .nav-burger { display: flex; }
+      .section-inner { padding: 80px 24px; }
+      .blockers-grid { grid-template-columns: 1fr; }
+      .method-panel.active { grid-template-columns: 1fr; }
+      .protocols-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      #cookie-banner { padding: 16px 24px; }
+      body { cursor: auto; }
+      #cursor, #cursor-ring { display: none; }
+    }
+    @media (max-width: 480px) {
+      .hero-title { font-size: 42px; }
+      .hero-sub { font-size: 10px; }
+      .section-title { font-size: 32px; }
+      .method-name { font-size: 28px; }
+    }
+
+    /* ── Utility ─────────────────────────────────────────────────────── */
+    .sr-only {
+      position: absolute; width: 1px; height: 1px;
+      padding: 0; margin: -1px; overflow: hidden;
+      clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+    ::selection { background: var(--red); color: var(--white); }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 4px; }
+
+    /* scrollbar */
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--red-dim); }
+
+    /* section divider glow line */
+    .glow-line {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--red), transparent);
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Cursor -->
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-ring" aria-hidden="true"></div>
+
+<!-- Progress bar -->
+<div id="progress-bar" role="progressbar" aria-hidden="true"></div>
+
+<!-- Three.js bg canvas -->
+<canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+<!-- Toast -->
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<!-- Mobile nav overlay -->
+<div class="mobile-nav-overlay" id="mobile-nav" role="dialog" aria-label="Меню навигации">
+  <a href="#hero" onclick="closeMobileNav()">Начало</a>
+  <a href="#blockers" onclick="closeMobileNav()">Блокеры</a>
+  <a href="#methods" onclick="closeMobileNav()">Методы</a>
+  <a href="#protocols" onclick="closeMobileNav()">AI-соавтор</a>
+  <a href="#omt" onclick="closeMobileNav()">∞ Вопросы</a>
+</div>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Основная навигация">
+  <a href="https://sinaida.eu" class="nav-logo" rel="noopener">sin.ai.da</a>
+  <ul class="nav-links">
+    <li><a href="#blockers">Блокеры</a></li>
+    <li><a href="#methods">Методы</a></li>
+    <li><a href="#protocols">AI</a></li>
+    <li><a href="#omt">∞</a></li>
+    <li><a href="https://sinaida.eu" rel="noopener" target="_blank">sinaida.eu ↗</a></li>
+  </ul>
+  <button class="nav-burger" id="burger-btn" aria-label="Открыть меню" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════ HERO -->
+<section id="hero" aria-label="Заголовок">
+  <div class="scan-line" aria-hidden="true"></div>
+  <div style="text-align:center; position:relative; z-index:10; padding: 0 24px;">
+    <p class="hero-glitch reveal">Creative Systems · sin.ai.da</p>
+    <h1 class="hero-title reveal reveal-delay-1">
+      От «Что же<br>мне сделать?»
+      <span class="accent">до Вау-продукта</span>
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">
+      9 методов · 6 блокеров · Протоколы AI-соавторства
+    </p>
+    <a href="#blockers" class="hero-cta reveal reveal-delay-3" aria-label="Начать изучение гайда">
+      <span>Начать</span>
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+  <p class="hero-scroll-hint" aria-hidden="true">scroll to explore</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ BLOCKERS -->
+<section id="blockers" aria-labelledby="blockers-title">
+  <div class="section-inner">
+    <p class="eyebrow reveal" aria-hidden="true">01 / Блокеры</p>
+    <h2 class="section-title reveal reveal-delay-1" id="blockers-title">
+      Почему мозг<br><span class="red">саботирует</span><br>вашу работу
+    </h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Блокеры — не слабость. Это предсказуемые нейронные паттерны. Распознать — значит уже наполовину выйти.
+    </p>
+
+    <div class="blockers-grid" id="blockers-grid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ METHODS -->
+<section id="methods" aria-labelledby="methods-title">
+  <div class="section-inner">
+    <p class="eyebrow reveal" aria-hidden="true">02 / Инструменты</p>
+    <h2 class="section-title reveal reveal-delay-1" id="methods-title">
+      9 методов<br><span class="red">мышления</span>
+    </h2>
+    <p class="section-desc reveal reveal-delay-2">
+      Каждый метод — своя визуальная схема. Нажми на метод, чтобы увидеть его механику.
+    </p>
+
+    <div class="methods-nav" role="tablist" aria-label="Список методов" id="methods-nav">
+      <!-- Tabs injected by JS -->
+    </div>
+
+    <div id="methods-panels">
+      <!-- Panels injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ AI PROTOCOLS -->
+<section id="protocols" aria-labelledby="protocols-title">
+  <div class="section-inner">
+    <p class="eyebrow reveal" aria-hidden="true">07 / AI как соавтор</p>
+    <h2 class="section-title reveal reveal-delay-1" id="protocols-title">
+      Думаешь<br><span class="red">ты</span>
+    </h2>
+
+    <div class="central-principle reveal reveal-delay-2">
+      <p>LLM генерирует. Вы решаете. Без фильтрации ответа через собственное суждение нельзя сделать хороший продукт — только статистически вероятный.</p>
+    </div>
+
+    <div class="protocols-grid" id="protocols-grid">
+      <!-- Injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ ONE MORE THING -->
+<section id="omt" aria-labelledby="omt-title">
+  <div class="omt-header">
+    <p class="omt-eyebrow reveal">One More Thing</p>
+    <h2 class="omt-title reveal reveal-delay-1" id="omt-title">Вопросы<br><span class="red">к себе</span></h2>
+    <p class="omt-desc reveal reveal-delay-2">
+      Цифровое святилище. Двигай курсором или пальцем — звёзды хранят вопросы. Для неожиданного понимания себя.
+    </p>
+    <div class="spotify-embed reveal reveal-delay-3">
+      <iframe style="border-radius:12px"
+        src="https://open.spotify.com/embed/playlist/1Nke8m1Yp3jYJynGS3rKyZ?utm_source=generator&theme=0"
+        width="100%" height="152" frameBorder="0" allowfullscreen=""
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+        loading="lazy" title="Плейлист для вопросов к себе">
+      </iframe>
+    </div>
+  </div>
+
+  <p class="omt-hint" aria-hidden="true">наведи курсор на звезду · tap a star</p>
+  <canvas id="constellation-canvas" role="img" aria-label="Интерактивное созвездие вопросов для саморефлексии"></canvas>
+
+  <div class="question-popup" id="question-popup" role="tooltip" aria-live="polite">
+    <div class="q-group" id="qp-group"></div>
+    <div id="qp-text"></div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ FOOTER -->
+<footer role="contentinfo">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="footer-logo" aria-label="sin.ai.da">sin.ai.da</span>
+      <p class="footer-tagline">Визуальные эссе о восприятии и иллюзии. Creative Systems для тех, кто превращает хаос в систему, а систему — в искусство.</p>
+      <div style="display:flex; gap:16px;">
+        <a href="https://sinaida.eu" rel="noopener" target="_blank"
+           style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);text-decoration:none;letter-spacing:2px;">
+          SINAIDA.EU ↗
+        </a>
+        <a href="https://instagram.com/sin.ai.da" rel="noopener" target="_blank"
+           style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);text-decoration:none;letter-spacing:2px;">
+          @SIN.AI.DA ↗
+        </a>
+      </div>
+    </div>
+    <div>
+      <p class="footer-links-title">Разделы</p>
+      <ul class="footer-links">
+        <li><a href="#blockers">Блокеры</a></li>
+        <li><a href="#methods">9 методов</a></li>
+        <li><a href="#protocols">AI-соавтор</a></li>
+        <li><a href="#omt">Вопросы к себе</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-links-title">Контакт</p>
+      <ul class="footer-links">
+        <li><a href="https://sinaida.eu" rel="noopener" target="_blank">sinaida.eu</a></li>
+        <li><a href="https://instagram.com/sin.ai.da" rel="noopener" target="_blank">Instagram</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 sin.ai.da Creative Systems · Sinaida Krivchenko</p>
+    <div class="footer-legal-links">
+      <a href="#" id="open-privacy">Политика конфиденциальности</a>
+      <a href="#" id="open-cookies">Cookie-политика</a>
+      <a href="#" id="reset-cookies">Сбросить настройки</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════ GDPR COOKIE BANNER -->
+<div id="cookie-banner" role="dialog" aria-label="Настройки cookies" aria-modal="false">
+  <p class="cookie-text">
+    Этот сайт использует только необходимые технические cookies. Никакой рекламы, никакой продажи данных.
+    <a href="#" id="banner-policy-link">Подробнее</a>
+  </p>
+  <div class="cookie-actions">
+    <button class="cookie-btn necessary" id="cookie-necessary" aria-label="Принять только необходимые cookies">Только необходимые</button>
+    <button class="cookie-btn accept" id="cookie-accept" aria-label="Принять все cookies">Принять</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// THREE.JS PARTICLE SYSTEM
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('bg-canvas');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+  camera.position.z = 80;
+
+  // Particles
+  const PARTICLE_COUNT = window.innerWidth < 600 ? 800 : 2000;
+  const positions = new Float32Array(PARTICLE_COUNT * 3);
+  const colors = new Float32Array(PARTICLE_COUNT * 3);
+  const sizes = new Float32Array(PARTICLE_COUNT);
+
+  const palette = [
+    new THREE.Color(0xE8003D),
+    new THREE.Color(0xC8A84B),
+    new THREE.Color(0x00C8FF),
+    new THREE.Color(0xF0EDE8),
+  ];
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    positions[i*3]   = (Math.random() - 0.5) * 200;
+    positions[i*3+1] = (Math.random() - 0.5) * 200;
+    positions[i*3+2] = (Math.random() - 0.5) * 120;
+    const c = palette[Math.floor(Math.random() * palette.length)];
+    const dim = 0.05 + Math.random() * 0.25;
+    colors[i*3]   = c.r * dim;
+    colors[i*3+1] = c.g * dim;
+    colors[i*3+2] = c.b * dim;
+    sizes[i] = 0.3 + Math.random() * 1.2;
+  }
+
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  geo.setAttribute('color',    new THREE.BufferAttribute(colors, 3));
+  geo.setAttribute('size',     new THREE.BufferAttribute(sizes, 1));
+
+  const mat = new THREE.ShaderMaterial({
+    vertexColors: true,
+    transparent: true,
+    depthWrite: false,
+    vertexShader: `
+      attribute float size;
+      varying vec3 vColor;
+      void main() {
+        vColor = color;
+        vec4 mvPos = modelViewMatrix * vec4(position, 1.0);
+        gl_PointSize = size * (300.0 / -mvPos.z);
+        gl_Position = projectionMatrix * mvPos;
+      }
+    `,
+    fragmentShader: `
+      varying vec3 vColor;
+      void main() {
+        float d = length(gl_PointCoord - 0.5) * 2.0;
+        float alpha = 1.0 - smoothstep(0.4, 1.0, d);
+        // glow
+        float glow = exp(-d * 3.0) * 0.6;
+        gl_FragColor = vec4(vColor + glow * vColor, alpha * (0.4 + glow));
+      }
+    `,
+  });
+
+  const particles = new THREE.Points(geo, mat);
+  scene.add(particles);
+
+  // Scroll-reactive drift
+  let scrollY = 0;
+  let targetScrollY = 0;
+  window.addEventListener('scroll', () => {
+    targetScrollY = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const prog = maxScroll > 0 ? targetScrollY / maxScroll : 0;
+    document.getElementById('progress-bar').style.width = (prog * 100) + '%';
+  }, { passive: true });
+
+  // Mouse parallax
+  let mouseX = 0, mouseY = 0;
+  window.addEventListener('mousemove', e => {
+    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+  }, { passive: true });
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.001;
+    scrollY += (targetScrollY - scrollY) * 0.05;
+
+    particles.rotation.y = time * 0.05 + mouseX * 0.04;
+    particles.rotation.x = time * 0.02 - mouseY * 0.02;
+    camera.position.y = -scrollY * 0.015;
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// CURSOR
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if (!cursor) return;
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button, .blocker-card, .method-tab').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform += ' scale(2)';
+      ring.style.borderColor = 'rgba(200,168,75,0.6)';
+    });
+    el.addEventListener('mouseleave', () => {
+      ring.style.borderColor = 'rgba(232,0,61,0.4)';
+    });
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════════
+const BLOCKERS = [
+  {
+    num:'01', glitch:'static',
+    title:'Синдром белого листа',
+    sub:'Паралич перед пустым пространством',
+    neuro:'Префронтальная кора входит в сверхактивацию при отсутствии контуров задачи. Миндалевидное тело интерпретирует неопределённость как угрозу. Кортизол блокирует дивергентное мышление. Парадокс: свобода становится тормозом.',
+    symptoms:['Смотрите на задачу — не знаете с чего начать, хотя ресурсов достаточно','Прокрастинируете через «подготовку»: читаете, но не делаете','Начинаете и бросаете — каждый старт кажется неправильным'],
+    exits:['Constraint Design: введите жёсткое ограничение прямо сейчас','Намеренно сделайте плохую версию — это разрывает паралич','Начните с середины, а не с начала'],
+    prompt:'Мне нужно начать [задача], но я застрял. Дай мне 5 намеренно плохих стартовых точек — таких, которые я точно никому не покажу. Цель — не решение, а движение.',
+  },
+  {
+    num:'02', glitch:'double',
+    title:'Иллюзия понимания',
+    sub:'Решается не та задача',
+    neuro:'«Эффект беглости»: то, что легко обрабатывается мозгом, воспринимается как понятное. Гиппокамп активирует знакомые паттерны — и кажется, что понимание уже есть. Мы перестаём задавать вопросы именно там, где нужно больше всего.',
+    symptoms:['Сразу переходите к решению, не формулируя задачу письменно','На уточняющий вопрос ответ звучит иначе, чем вы думали','Готово — но ощущение «что-то не то» не уходит'],
+    exits:['5 Почему: пять итераций письменно — пока формулировка не перестанет меняться','Сформулируйте задачу от имени человека, который её не понимает вообще','JTBD: «какую работу это выполняет для человека?»'],
+    prompt:'Я думаю, что моя задача — [формулировка]. Задай мне 5 вопросов, которые поставят её под сомнение. Каждый начинается с «А точно ли...» или «А что если на самом деле...»',
+  },
+  {
+    num:'03', glitch:'loop',
+    title:'Застревание в «хорошем»',
+    sub:'Первое рабочее решение становится единственным',
+    neuro:'Anchoring bias: первая «сработавшая» идея становится ментальным якорем. Дофаминовая система вознаграждает нахождение решения — мозг получает сигнал «стоп, нашли». Все последующие идеи оцениваются в сравнении с якорём.',
+    symptoms:['Первая идея кажется «очевидно правильной» — дальше не ищете','Другие варианты рассматриваете как запасные, а не равные','На критику защищаете идею, не исследуете слабые стороны'],
+    exits:['Правило 20 идей: не останавливаться, пока список не достиг 20','Поставьте текущую идею под запрет на 24 часа — ищите без неё','6 Шляп на текущую идею: особенно чёрная шляпа'],
+    prompt:'Вот моя текущая идея: [идея]. Придумай 7 альтернативных подходов к той же задаче — принципиально разных, включая абсурдные. Не улучшай мою идею — предлагай другие.',
+  },
+  {
+    num:'04', glitch:'signal',
+    title:'Перфекционизм',
+    sub:'Стандарт настолько высок, что старт невозможен',
+    neuro:'Передняя поясная кора фиксирует расстояние между «что есть» и «что должно быть» — генерирует постоянный сигнал ошибки. Мозг откладывает действие: «лучше не делать, чем сделать неправильно» — эволюционная защита от социального исключения.',
+    symptoms:['Работа зависает в «почти готово» неделями','Непропорционально много времени на детали, которые никто не заметит','Показывать работу страшнее, чем не делать её'],
+    exits:['Версия 0.1: намеренно назовите версию черновиком — снимает давление','Временной дедлайн: «через 2 часа это готово, что бы ни было»','Разделите создание и оценку — сначала делаете, потом редактируете'],
+    prompt:'Я застрял в перфекционизме с [проект]. Помоги сформулировать минимальный критерий «готово» — не идеальный, а достаточный для первого показа.',
+  },
+  {
+    num:'05', glitch:'static',
+    title:'Информационное перенасыщение',
+    sub:'Референсы убивают собственный голос',
+    neuro:'Рабочая память удерживает 4±1 единицы. При перегрузке мозг переходит в режим сортировки — дефолтная сеть (источник инсайтов) подавляется. Чем больше референсов, тем сильнее расстояние между «там» и «здесь».',
+    symptoms:['Собрали 200 референсов и не можете начать','Каждая идея кажется производной от виденного','После чужих работ ощущение своего голоса исчезает'],
+    exits:['Карантин референсов: запрет на первые 2 часа работы — сначала выгрузите своё','Mind Map до референсов: всё, что уже знаете — на бумагу','Один принцип вместо двухсот форм'],
+    prompt:'Я перегружен референсами для [проект]. Для каждого из них сформулируй один принцип, который в нём работает. Мне нужны принципы, не копии.',
+  },
+  {
+    num:'06', glitch:'double',
+    title:'Внутренний критик раньше времени',
+    sub:'Оценка убивает генерацию в момент рождения',
+    neuro:'Латеральная префронтальная кора подавляет «нерелевантные» ответы. При включённом критике идеи гибнут до оформления. Джазовые музыканты в состоянии импровизации намеренно снижают активность именно этой зоны.',
+    symptoms:['Мысли возникают и сразу исчезают — «это не то»','Редактируете в процессе, не давая мысли закончиться','Список идей всегда короткий — останавливаетесь до того, как становится интересно'],
+    exits:['Протокол «сначала плохо»: первая версия обязана быть плохой — это правило','Таймер 10 минут без backspace: пишите непрерывно, не удаляя ничего','Дайте критику имя и попросите подождать снаружи'],
+    prompt:'Я работаю над [задача], критик убивает идеи. Сыграй роль восторженного соучастника — я буду называть идеи, ты находи в каждой то, что может работать.',
+  },
+];
+
+const METHODS = [
+  {
+    id:'why5', tab:'5 Почему', cat:'Диагностика', name:'5 Почему',
+    mode:'pencil', modeLabel:'✎ Карандаш',
+    body:'Задайте «почему?» пять раз подряд к симптому. Каждый ответ — следующий вопрос. На 4–5 итерации вскрывается корень.',
+    when:'Кажется, что знаете причину — но решения не работают',
+    prompt: null,
+    diag: 'why5',
+    diag_steps:[
+      'СИМПТОМ: "Идея не работает"',
+      'ПОЧЕМУ? → Нет отклика у аудитории',
+      'ПОЧЕМУ? → Задача сформулирована неточно',
+      'ПОЧЕМУ? → Не задан вопрос «для кого?»',
+      'КОРЕНЬ: Неизвестна настоящая потребность',
+    ],
+  },
+  {
+    id:'hats6', tab:'6 Шляп', cat:'Перспективы', name:'6 Шляп de Bono',
+    mode:'both', modeLabel:'✎ + ⬡ Карандаш / LLM',
+    body:'6 режимов мышления последовательно. Белая — факты. Красная — эмоции. Чёрная — риски. Жёлтая — оптимизм. Зелёная — идеи. Синяя — процесс.',
+    when:'Застряли в одном режиме оценки или нужно принять командное решение',
+    prompt:'Проанализируй [идею] последовательно с позиции 6 шляп: факты → эмоции → риски → потенциал → альтернативы → итог. Для каждой — 2–3 конкретных пункта.',
+    diag:'hats6',
+  },
+  {
+    id:'scamper', tab:'SCAMPER', cat:'Трансформация', name:'SCAMPER',
+    mode:'llm', modeLabel:'⬡ LLM',
+    body:'7 линз трансформации: Substitute · Combine · Adapt · Modify · Put to other use · Eliminate · Reverse. Работает на любом объекте или концепте.',
+    when:'Есть прототип или базовая идея — нужно раскрыть вариации',
+    prompt:'Примени SCAMPER к [объекту/идее]. Для каждой буквы — 2 конкретных варианта трансформации. Фокус на неожиданных применениях.',
+    diag:'scamper',
+  },
+  {
+    id:'mindmap', tab:'Mind Map', cat:'Развёртывание', name:'Mind Map',
+    mode:'pencil', modeLabel:'✎ Карандаш',
+    body:'Центральная идея → ветви ассоциаций → подветви деталей. Рисуйте руками: скорость важнее порядка. Связи рождаются через движение.',
+    when:'Нужно выгрузить всё, что знаете о теме, перед началом работы',
+    prompt: null,
+    diag:'mindmap',
+  },
+  {
+    id:'inverse', tab:'Инверсия', cat:'Инверсия', name:'Обратный брейнсторм',
+    mode:'pencil', modeLabel:'✎ Карандаш',
+    body:'Вместо «как решить?» — «как гарантированно провалить?». Список провалов переворачивается в список решений. Снимает блокаду критика.',
+    when:'Классический брейнсторм даёт скучные очевидные идеи',
+    prompt: null,
+    diag:'inverse',
+  },
+  {
+    id:'constraint', tab:'Constraint', cat:'Ограничения', name:'Constraint Design',
+    mode:'llm', modeLabel:'⬡ LLM',
+    body:'Добавьте искусственные ограничения: один цвет, без слов, за 10 минут. Ограничение — генератор, не тормоз. Убирает бесконечное поле выбора.',
+    when:'Слишком много свободы парализует или нужен нестандартный угол',
+    prompt:'Придумай 10 провокационных ограничений для [задачи]. Специфичных, измеримых, нарушающих привычный способ работы. Для трёх лучших — что они могут раскрыть.',
+    diag:'constraint',
+  },
+  {
+    id:'analogy', tab:'Аналогии', cat:'Аналогии', name:'Analogical Thinking',
+    mode:'llm', modeLabel:'⬡ LLM',
+    body:'Найдите, как аналогичная проблема решена в другой области: природа, военная стратегия, кулинария, архитектура. Перенесите принцип, не форму.',
+    when:'Нужен нестандартный образ или вы работаете в визуальных проектах',
+    prompt:'Найди 5 аналогий для [задачи] из разных областей: природа, архитектура, спорт, кулинария, стратегия. Для каждой — принцип и как его перенести.',
+    diag:'analogy',
+  },
+  {
+    id:'jtbd', tab:'JTBD', cat:'Мотив', name:'Jobs To Be Done',
+    mode:'llm', modeLabel:'⬡ LLM',
+    body:'Не «что создаём», а «какую работу нанимает пользователь это выполнять». Три уровня: функциональная, эмоциональная, социальная работа.',
+    when:'Работаете над продуктом, коммуникацией или визуальным языком для аудитории',
+    prompt:'Проанализируй [продукт] через JTBD: 1) функциональная работа, 2) эмоциональная, 3) социальная. Какие инсайты это даёт для дизайна?',
+    diag:'jtbd',
+  },
+  {
+    id:'proto', tab:'Прототип', cat:'Итерации', name:'Prototyping Loop',
+    mode:'both', modeLabel:'✎ + ⬡ Карандаш / LLM',
+    body:'Грубый прототип за 30 минут. Показываете без объяснений. Смотрите, что считывается. Итерируете. Качество растёт через циклы, не обдумывание.',
+    when:'Есть концепт — нет уверенности, работает ли он на аудитории',
+    prompt:'Сыграй роль пользователя [аудитория]. Опиши первую реакцию на [концепт]: что понял без объяснений, что осталось непонятным. Только реакция, не советы.',
+    diag:'proto',
+  },
+];
+
+const PROTOCOLS = [
+  {
+    num:'01', title:'LLM как зеркало, не автор',
+    problem:'Берёте ответ и вставляете без обработки',
+    principle:'LLM генерирует статистически вероятный ответ — не ваш. Используйте его для разогрева мышления, не как замену ему. Выберите из ответа один резонирующий элемент. Остальное — отбросьте.',
+    warning:'Если ответ звучит «лучше» вашего — проверьте: ваше ли это вообще.',
+    prompt:'Я пытаюсь выразить [идея], но слова не складываются. Вот моя попытка: [черновик]. Не редактируй. Опиши, что ты слышишь за моими словами.',
+  },
+  {
+    num:'02', title:'Сократический диалог',
+    problem:'LLM даёт ответы — вам нужны вопросы',
+    principle:'Поменяйте направление: вместо «дай решение» — «задай вопросы». Отвечайте письменно. Когда застряли на ответе — это точка, где работа настоящая.',
+    warning:'Если не хочется отвечать на вопрос — это самый важный вопрос в списке.',
+    prompt:'Я работаю над [задача]. Задай мне 7 неудобных вопросов, которые помогут мне самому прийти к ответу. Без решений и советов.',
+  },
+  {
+    num:'03', title:'Протокол «чёрного ящика»',
+    problem:'AI становится костылём — перестаёте доверять суждению',
+    principle:'До запроса — зафиксируйте свою позицию. После получения ответа — снова зафиксируйте. Разница между «до» и «после» — это ваш диалог с инструментом.',
+    warning:'Если принимаете ответ без сопротивления — вы не думаете, вы делегируете.',
+    prompt:'Вот моя текущая позиция: [3 предложения]. Оспорь её. Не соглашайся. Покажи то, что я не вижу.',
+  },
+  {
+    num:'04', title:'Итерация голоса',
+    problem:'Текст от LLM звучит правильно — но не ваш',
+    principle:'Голос — это точка зрения, не стиль. LLM имитирует точку зрения. Итерируйте через несогласие: найдите предложение «не моё» и объясните почему.',
+    warning:'Итерировать нужно через несогласие, не через «сделай лучше».',
+    prompt:'Вот текст: [текст]. Я не согласен с [элемент], потому что [причина]. Перепиши, учитывая несогласие — не улучшай, меняй направление.',
+  },
+  {
+    num:'05', title:'Тест на присвоение',
+    problem:'Как понять — это ваше решение или LLM решил за вас?',
+    principle:'Можете ли защитить решение без «AI так сказал»? Три собственных аргумента? Если нет — работа ещё не закончена.',
+    warning:'Хороший продукт — это когда за ним стоит человек со своей точкой зрения.',
+    prompt:'Вот моё финальное решение: [решение]. Сыграй скептика. Задай 5 вопросов, доказывающих, что это моё решение, а не твоё.',
+  },
+];
+
+const QUESTIONS = [
+  { group:'Происхождение', qs:[
+    'Какой момент детства ты помнишь острее всего — не потому что счастливый, а потому что он что-то решил в тебе?',
+    'Есть ли что-то, от чего ты так и не оправился — и не хочешь оправляться?',
+    'Кто дал тебе разрешение быть собой — осознанно или нет?',
+    'Что тебе запрещали, что сделало тебя именно таким?',
+    'Если бы твоё детство было архитектурой — что это за здание?',
+  ]},
+  { group:'Тело работы', qs:[
+    'Что ты делаешь, когда никто не смотрит — и это самое честное из всего?',
+    'Какую работу ты откладываешь, потому что она слишком настоящая?',
+    'Если убрать признание, деньги и чужие ожидания — что остаётся?',
+    'Что ты создаёшь снова и снова под разными именами?',
+    'Кому ты на самом деле адресуешь свою работу?',
+    'Что ты боишься сказать через творчество — и уже говоришь, не замечая?',
+  ]},
+  { group:'Тень и свет', qs:[
+    'Какая твоя черта раздражает в других — и значит, живёт в тебе?',
+    'Что ты называешь «слабостью», но другие называют «голосом»?',
+    'Если бы твоя самая тёмная часть создала произведение — что бы это было?',
+    'От чего ты себя защищаешь, называя это «профессиональной дистанцией»?',
+    'Где заканчивается твой персонаж и начинается ты?',
+  ]},
+  { group:'Время и след', qs:[
+    'Если через 50 лет кто-то найдёт твою работу — что они поймут о времени, в котором ты жил?',
+    'Что ты хочешь, чтобы кто-то почувствовал после встречи с твоей работой?',
+    'Какой вопрос ты задаёшь всю жизнь — в разных формах?',
+    'Если бы тебе осталось создать одну вещь — что это?',
+    'Что ты несёшь в этот мир, чего не было до тебя?',
+  ]},
+  { group:'Сейчас', qs:[
+    'Что тебя беспокоит настолько, что ты превращаешь это в работу?',
+    'Есть ли что-то, что ты знаешь — но притворяешься, что не знаешь?',
+    'Кем ты был год назад — и узнаёшь ли себя в той версии?',
+    'Что ты разрешил себе за последний год — и чего ещё не разрешил?',
+    'Если сегодняшний день — это произведение, какой жанр?',
+  ]},
+];
+
+// ═══════════════════════════════════════════════════════════════════
+// UTIL
+// ═══════════════════════════════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function copyText(text) {
+  navigator.clipboard.writeText(text).then(() => showToast('Скопировано'));
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// BLOCKERS BUILD
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const grid = document.getElementById('blockers-grid');
+  BLOCKERS.forEach(b => {
+    const card = document.createElement('article');
+    card.className = 'blocker-card reveal';
+    card.setAttribute('data-glitch', b.glitch);
+    card.setAttribute('data-num', b.num);
+    card.setAttribute('aria-expanded', 'false');
+
+    const sympHTML = b.symptoms.map(s => `<li>${s}</li>`).join('');
+    const exitHTML = b.exits.map(e => `<li>${e}</li>`).join('');
+
+    card.innerHTML = `
+      <div class="blocker-num">// ${b.num}</div>
+      <h3 class="blocker-title">${b.title}</h3>
+      <p class="blocker-subtitle">${b.sub}</p>
+      <button class="blocker-expand-btn" aria-label="Развернуть карточку блокера ${b.title}">ПОДРОБНЕЕ +</button>
+      <div class="blocker-detail">
+        <div class="blocker-detail-inner">
+          <p class="blocker-section-label">Нейронаука</p>
+          <p class="blocker-neuro">${b.neuro}</p>
+          <p class="blocker-section-label">Как опознать</p>
+          <ul class="blocker-list">${sympHTML}</ul>
+          <p class="blocker-section-label">Как выйти</p>
+          <ul class="blocker-list exits">${exitHTML}</ul>
+          ${b.prompt ? `
+          <p class="blocker-section-label">Промпт для LLM</p>
+          <div class="blocker-prompt">
+            <code>${b.prompt}</code>
+            <button class="copy-btn" aria-label="Скопировать промпт">
+              <span>⧉</span> СКОПИРОВАТЬ
+            </button>
+          </div>` : ''}
+        </div>
+      </div>
+    `;
+
+    const btn = card.querySelector('.blocker-expand-btn');
+    const detail = card.querySelector('.blocker-detail');
+    btn.addEventListener('click', () => {
+      const isOpen = card.classList.toggle('open');
+      card.setAttribute('aria-expanded', isOpen);
+      btn.textContent = isOpen ? 'СВЕРНУТЬ −' : 'ПОДРОБНЕЕ +';
+    });
+
+    const copyBtn = card.querySelector('.copy-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        copyText(b.prompt);
+        copyBtn.classList.add('copied');
+        setTimeout(() => copyBtn.classList.remove('copied'), 1500);
+      });
+    }
+
+    grid.appendChild(card);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// METHODS BUILD
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const nav = document.getElementById('methods-nav');
+  const panels = document.getElementById('methods-panels');
+
+  METHODS.forEach((m, idx) => {
+    // Tab
+    const tab = document.createElement('button');
+    tab.className = 'method-tab' + (idx===0?' active':'');
+    tab.textContent = m.tab;
+    tab.setAttribute('role','tab');
+    tab.setAttribute('aria-selected', idx===0 ? 'true':'false');
+    tab.setAttribute('aria-controls', 'panel-'+m.id);
+    tab.id = 'tab-'+m.id;
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.method-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      document.querySelectorAll('.method-panel').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active'); tab.setAttribute('aria-selected','true');
+      document.getElementById('panel-'+m.id).classList.add('active');
+      if (m.diag) initDiagram(m.id, m);
+    });
+    nav.appendChild(tab);
+
+    // Panel
+    const panel = document.createElement('div');
+    panel.className = 'method-panel' + (idx===0?' active':'');
+    panel.id = 'panel-'+m.id;
+    panel.setAttribute('role','tabpanel');
+    panel.setAttribute('aria-labelledby','tab-'+m.id);
+
+    const modeClass = m.mode==='pencil'?'mode-pencil':m.mode==='llm'?'mode-llm':'mode-both';
+
+    panel.innerHTML = `
+      <div class="method-info">
+        <p class="method-cat">${m.cat}</p>
+        <h3 class="method-name">${m.name}</h3>
+        <p class="method-body">${m.body}</p>
+        <p class="method-when">${m.when}</p>
+        <p class="method-mode ${modeClass}">${m.modeLabel}</p>
+        ${m.prompt ? `
+        <div class="method-prompt-block">
+          <p class="method-prompt-label">Промпт для LLM</p>
+          <p class="method-prompt-text">${m.prompt}</p>
+          <button class="copy-btn" aria-label="Скопировать промпт для ${m.name}">⧉ СКОПИРОВАТЬ</button>
+        </div>` : ''}
+      </div>
+      <div class="method-diagram" id="diag-${m.id}" aria-label="Визуальная схема метода ${m.name}">
+      </div>
+    `;
+
+    const copyBtn = panel.querySelector('.copy-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => copyText(m.prompt));
+    }
+
+    panels.appendChild(panel);
+  });
+
+  // Init first diagram
+  initDiagram(METHODS[0].id, METHODS[0]);
+})();
+
+function initDiagram(id, m) {
+  const el = document.getElementById('diag-'+id);
+  if (!el || el.dataset.init) return;
+  el.dataset.init = '1';
+
+  switch(id) {
+    case 'why5': buildWhy5(el, m); break;
+    case 'hats6': buildHats6(el); break;
+    case 'scamper': buildScamper(el); break;
+    case 'mindmap': buildMindMap(el); break;
+    case 'inverse': buildInverse(el); break;
+    case 'constraint': buildConstraint(el); break;
+    case 'analogy': buildAnalogy(el); break;
+    case 'jtbd': buildJTBD(el); break;
+    case 'proto': buildProto(el); break;
+  }
+}
+
+function buildWhy5(el, m) {
+  const steps = m.diag_steps || [];
+  el.innerHTML = `<div class="diag-5why" id="why5-inner"></div>`;
+  const inner = el.querySelector('#why5-inner');
+  steps.forEach((s,i) => {
+    if (i>0) { const arr = document.createElement('div'); arr.className='why-arrow'; inner.appendChild(arr); }
+    const node = document.createElement('div');
+    node.className = 'why-node' + (i===steps.length-1?' active':'');
+    node.textContent = s;
+    inner.appendChild(node);
+  });
+  // Animate in sequence
+  let delay = 0;
+  inner.querySelectorAll('.why-node, .why-arrow').forEach(n => {
+    setTimeout(() => n.classList.add('visible'), delay);
+    delay += 180;
+  });
+}
+
+function buildHats6(el) {
+  el.innerHTML = `<div class="diag-6hats" id="hats-inner"></div>`;
+  const inner = el.querySelector('#hats-inner');
+  const hats = [
+    { cls:'hat-white', label:'ФАКТЫ', emoji:'⬜', angle:0 },
+    { cls:'hat-red-c', label:'ЭМОЦИИ', emoji:'🔴', angle:60 },
+    { cls:'hat-black', label:'РИСКИ', emoji:'⬛', angle:120 },
+    { cls:'hat-yellow', label:'ПЛЮСЫ', emoji:'🟡', angle:180 },
+    { cls:'hat-green', label:'ИДЕИ', emoji:'🟢', angle:240 },
+    { cls:'hat-blue', label:'ПРОЦЕСС', emoji:'🔵', angle:300 },
+  ];
+  const cx=50, cy=50, r=36;
+  hats.forEach(h => {
+    const rad = (h.angle - 90) * Math.PI / 180;
+    const x = cx + r * Math.cos(rad);
+    const y = cy + r * Math.sin(rad);
+    const div = document.createElement('div');
+    div.className = `hat-item ${h.cls}`;
+    div.style.left = x+'%'; div.style.top = y+'%';
+    div.innerHTML = `<span style="font-size:16px">${h.emoji}</span><span>${h.label}</span>`;
+    inner.appendChild(div);
+  });
+  // Center label
+  const center = document.createElement('div');
+  center.style.cssText = 'position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-mono);font-size:10px;color:var(--red);letter-spacing:2px;text-align:center;';
+  center.textContent = '6 ШЛЯП';
+  inner.appendChild(center);
+}
+
+function buildScamper(el) {
+  const letters = ['S','C','A','M','P','E','R'];
+  const full = ['Substitute','Combine','Adapt','Modify','Put to use','Eliminate','Reverse'];
+  el.innerHTML = `<div class="diag-scamper">
+    <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:140px;height:140px;border:1px solid rgba(232,0,61,0.1);border-radius:50%;"></div>
+    <div class="scamper-center">IDEA</div>
+  </div>`;
+  const inner = el.querySelector('.diag-scamper');
+  const cx=50, cy=50, r=38;
+  letters.forEach((l,i) => {
+    const rad = (i/7 * 360 - 90) * Math.PI / 180;
+    const x = cx + r * Math.cos(rad);
+    const y = cy + r * Math.sin(rad);
+    const node = document.createElement('div');
+    node.className = 'scamper-node';
+    node.style.left = x+'%'; node.style.top = y+'%';
+    node.title = full[i];
+    node.textContent = l;
+    node.addEventListener('mouseenter', () => {
+      node.style.borderColor = 'var(--red)';
+      node.style.background = 'rgba(232,0,61,0.15)';
+      node.style.color = 'var(--red)';
+    });
+    node.addEventListener('mouseleave', () => {
+      node.style.borderColor = '';
+      node.style.background = '';
+      node.style.color = '';
+    });
+    inner.appendChild(node);
+  });
+}
+
+function buildMindMap(el) {
+  const c = document.createElement('canvas');
+  c.width = el.offsetWidth || 400;
+  c.height = 300;
+  c.style.width='100%'; c.style.height='100%';
+  el.appendChild(c);
+  const ctx = c.getContext('2d');
+  const cx = c.width/2, cy = c.height/2;
+
+  const branches = [
+    { label:'Задача', angle:-90, children:['Что?','Зачем?'] },
+    { label:'Контекст', angle:-30, children:['Кто?','Где?'] },
+    { label:'Идеи', angle:30, children:['A','B','C'] },
+    { label:'Риски', angle:90, children:['Риск1','Риск2'] },
+    { label:'Ресурсы', angle:150, children:['Люди','Время'] },
+    { label:'Действие', angle:210, children:['Шаг1','Шаг2'] },
+  ];
+
+  function drawBranch(x1,y1,x2,y2,color,width=1.5) {
+    ctx.beginPath();
+    ctx.moveTo(x1,y1);
+    const mx=(x1+x2)/2, my=(y1+y2)/2;
+    ctx.quadraticCurveTo(mx+(y2-y1)*0.2, my-(x2-x1)*0.2, x2,y2);
+    ctx.strokeStyle=color; ctx.lineWidth=width;
+    ctx.stroke();
+  }
+
+  // center
+  ctx.beginPath();
+  ctx.arc(cx,cy,22,0,Math.PI*2);
+  ctx.fillStyle='rgba(232,0,61,0.15)';
+  ctx.fill();
+  ctx.strokeStyle='var(--red)'; ctx.lineWidth=1.5; ctx.stroke();
+  ctx.fillStyle='#F0EDE8'; ctx.font='bold 11px Space Mono';
+  ctx.textAlign='center'; ctx.textBaseline='middle';
+  ctx.fillText('ИДЕЯ',cx,cy);
+
+  branches.forEach(b => {
+    const rad = b.angle * Math.PI/180;
+    const bx = cx + 90*Math.cos(rad), by = cy + 70*Math.sin(rad);
+    drawBranch(cx,cy,bx,by,'rgba(200,168,75,0.5)',1.5);
+
+    ctx.beginPath();
+    ctx.arc(bx,by,18,0,Math.PI*2);
+    ctx.fillStyle='rgba(200,168,75,0.08)';
+    ctx.fill();
+    ctx.strokeStyle='rgba(200,168,75,0.4)'; ctx.lineWidth=1; ctx.stroke();
+    ctx.fillStyle='rgba(200,168,75,0.9)'; ctx.font='9px Space Mono';
+    ctx.fillText(b.label,bx,by);
+
+    b.children.forEach((ch,ci) => {
+      const crad = (b.angle + (ci-0.5)*30) * Math.PI/180;
+      const ex = bx + 55*Math.cos(crad), ey = by + 45*Math.sin(crad);
+      drawBranch(bx,by,ex,ey,'rgba(85,85,105,0.4)',1);
+      ctx.fillStyle='rgba(136,136,153,0.8)'; ctx.font='8px Space Mono';
+      ctx.fillText(ch,ex,ey);
+    });
+  });
+}
+
+function buildInverse(el) {
+  el.innerHTML = `
+    <div style="padding:24px;width:100%">
+      <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
+        <div style="flex:1;background:var(--gray2);border:1px solid var(--gray3);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--gray5)">
+          КАК ПРОВАЛИТЬ?
+        </div>
+        <div style="font-size:20px;color:var(--red)">⟷</div>
+        <div style="flex:1;background:rgba(232,0,61,0.06);border:1px solid var(--red-dim);padding:12px;font-family:var(--font-mono);font-size:11px;color:var(--white)">
+          РЕШЕНИЕ
+        </div>
+      </div>
+      ${[['Не показывать никому','→ Ранний показ аудитории'],['Делать всё в одиночку','→ Привлечь внешнюю точку зрения'],['Откладывать старт','→ Начать с чего угодно прямо сейчас'],['Перфекционировать первую версию','→ Версия 0.1: запустить «как есть»']].map(([bad,good])=>`
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;margin-bottom:8px">
+        <div style="padding:8px 12px;background:var(--gray2);border:1px solid rgba(232,0,61,0.2);font-size:11px;color:var(--gray5);font-family:var(--font-mono)">${bad}</div>
+        <div style="color:var(--red);font-size:14px">→</div>
+        <div style="padding:8px 12px;background:rgba(76,175,80,0.06);border:1px solid rgba(76,175,80,0.3);font-size:11px;color:#4CAF50;font-family:var(--font-mono)">${good}</div>
+      </div>`).join('')}
+    </div>
+  `;
+}
+
+function buildConstraint(el) {
+  const constraints = ['Без слов','Один цвет','За 10 мин','Для слепого','Без бюджета','Только руками','Одна форма'];
+  el.innerHTML = `<div style="padding:24px;width:100%;display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:center">
+    <div style="width:100%;font-family:var(--font-mono);font-size:10px;color:var(--red);letter-spacing:3px;text-align:center;margin-bottom:8px">ВЫБЕРИ ОГРАНИЧЕНИЕ</div>
+    ${constraints.map(c=>`<button onclick="this.style.borderColor='var(--red)';this.style.color='var(--white)';this.style.background='rgba(232,0,61,0.1)'" style="padding:10px 16px;background:var(--gray2);border:1px solid var(--gray3);color:var(--gray5);font-family:var(--font-mono);font-size:11px;cursor:pointer;transition:all 0.2s">${c}</button>`).join('')}
+    <div style="width:100%;text-align:center;margin-top:12px;font-size:12px;color:var(--gray5)">Комбинируй несколько — чем жёстче, тем продуктивнее</div>
+  </div>`;
+}
+
+function buildAnalogy(el) {
+  const domains = [
+    { d:'Природа', icon:'🌿', ex:'Паук плетёт сеть — идея нелинейных связей' },
+    { d:'Архитектура', icon:'🏛', ex:'Контрфорс — поддержка снаружи, невидимая изнутри' },
+    { d:'Кулинария', icon:'🔥', ex:'Ферментация — медленный процесс как усилитель качества' },
+    { d:'Стратегия', icon:'♟', ex:'Гамбит — жертва малого ради большого' },
+    { d:'Астрономия', icon:'🌑', ex:'Гравитационная линза — искажение как инструмент видения' },
+  ];
+  el.innerHTML = `<div style="padding:20px;width:100%">
+    ${domains.map(d=>`<div style="display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--gray3)">
+      <span style="font-size:20px">${d.icon}</span>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:2px;margin-bottom:4px">${d.d.toUpperCase()}</div>
+        <div style="font-size:12px;color:var(--gray5)">${d.ex}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function buildJTBD(el) {
+  el.innerHTML = `<div style="padding:24px;width:100%">
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:3px;margin-bottom:20px">3 УРОВНЯ РАБОТЫ</div>
+    ${[
+      ['ФУНКЦИОНАЛЬНАЯ','Что делает? Какую задачу решает физически?','var(--white)','var(--gray3)'],
+      ['ЭМОЦИОНАЛЬНАЯ','Что чувствует человек, используя это?','var(--gold)','rgba(200,168,75,0.2)'],
+      ['СОЦИАЛЬНАЯ','Как это влияет на идентичность человека?','var(--red)','rgba(232,0,61,0.08)'],
+    ].map(([l,d,c,bg],i)=>`
+    <div style="display:grid;grid-template-columns:32px 1fr;gap:16px;align-items:center;margin-bottom:12px;padding:14px;background:${bg};border:1px solid rgba(255,255,255,0.06)">
+      <div style="font-family:var(--font-display);font-size:22px;font-weight:800;color:${c};opacity:0.4">${i+1}</div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:${c};letter-spacing:2px;margin-bottom:4px">${l}</div>
+        <div style="font-size:12px;color:var(--gray5)">${d}</div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function buildProto(el) {
+  el.innerHTML = `<div style="padding:24px;width:100%">
+    <div style="font-family:var(--font-mono);font-size:10px;color:var(--red);letter-spacing:3px;margin-bottom:20px">ЦИКЛ ИТЕРАЦИИ</div>
+    <div style="position:relative;display:flex;flex-direction:column;gap:4px">
+      ${[
+        ['СДЕЛАТЬ','Грубый прототип за 30 мин','var(--red)'],
+        ['ПОКАЗАТЬ','Без объяснений — 2–3 человека','var(--gold)'],
+        ['НАБЛЮДАТЬ','Что считывается само?','var(--cyan)'],
+        ['ИТЕРИРОВАТЬ','Один изменённый элемент','#4CAF50'],
+      ].map(([t,d,c],i)=>`
+      <div style="display:flex;gap:12px;align-items:center;padding:12px;background:var(--gray2);border-left:3px solid ${c}">
+        <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:${c};opacity:0.3;min-width:28px">${i+1}</div>
+        <div>
+          <div style="font-family:var(--font-mono);font-size:10px;color:${c};letter-spacing:2px">${t}</div>
+          <div style="font-size:12px;color:var(--gray5);margin-top:2px">${d}</div>
+        </div>
+      </div>
+      ${i<3?`<div style="text-align:center;color:var(--gray4);font-size:12px">↓</div>`:''}`).join('')}
+      <div style="font-family:var(--font-mono);font-size:9px;color:var(--gray4);text-align:center;margin-top:12px;letter-spacing:2px">ПОВТОРИТЬ → КАЧЕСТВО РАСТЁТ ЧЕРЕЗ ЦИКЛЫ</div>
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// PROTOCOLS BUILD
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const grid = document.getElementById('protocols-grid');
+  PROTOCOLS.forEach(p => {
+    const card = document.createElement('article');
+    card.className = 'protocol-card reveal';
+    card.innerHTML = `
+      <div class="protocol-num">// ${p.num}</div>
+      <h3 class="protocol-title">${p.title}</h3>
+      <p class="protocol-problem">${p.problem}</p>
+      <p class="protocol-principle">${p.principle}</p>
+      ${p.prompt ? `
+      <div class="method-prompt-block" style="margin-top:16px">
+        <p class="method-prompt-label">Промпт</p>
+        <p class="method-prompt-text" style="font-size:11px">${p.prompt}</p>
+        <button class="copy-btn" aria-label="Скопировать промпт">⧉ СКОПИРОВАТЬ</button>
+      </div>` : ''}
+      <p class="protocol-warning">${p.warning}</p>
+    `;
+    const btn = card.querySelector('.copy-btn');
+    if (btn) btn.addEventListener('click', () => copyText(p.prompt));
+    grid.appendChild(card);
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// CONSTELLATION — ONE MORE THING
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const canvas = document.getElementById('constellation-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const popup = document.getElementById('question-popup');
+  const qpGroup = document.getElementById('qp-group');
+  const qpText = document.getElementById('qp-text');
+
+  // Flatten all questions into stars with group info
+  const stars = [];
+  QUESTIONS.forEach(group => {
+    group.qs.forEach(q => {
+      stars.push({ group: group.group, text: q, x:0, y:0, r:0, baseR:0, angle:0, speed:0, dist:0, cx:0, cy:0, glow:0 });
+    });
+  });
+
+  let W, H;
+
+  function resize() {
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width = W * window.devicePixelRatio;
+    canvas.height = H * window.devicePixelRatio;
+    ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+    layoutStars();
+  }
+
+  function layoutStars() {
+    // Arrange in loose clusters per group
+    const groups = QUESTIONS.length;
+    stars.forEach((s, i) => {
+      const gi = QUESTIONS.findIndex(g => g.group === s.group);
+      const angle = (gi / groups) * Math.PI * 2 + (Math.random()-0.5)*0.4;
+      const dist = 0.25 * Math.min(W,H) + Math.random() * 0.15 * Math.min(W,H);
+      s.cx = W/2; s.cy = H/2;
+      s.angle = angle + (Math.random()-0.5)*0.3;
+      s.dist = dist;
+      s.x = W/2 + dist * Math.cos(s.angle);
+      s.y = H/2 + dist * Math.sin(s.angle);
+      s.baseR = 2 + Math.random() * 3;
+      s.r = s.baseR;
+      s.speed = 0.0003 + Math.random() * 0.0002;
+      s.phase = Math.random() * Math.PI * 2;
+      s.glow = 0;
+    });
+  }
+
+  let time = 0;
+  let activeIdx = -1;
+  let mx = W/2||300, my = H/2||200;
+
+  function getPos(e) {
+    const rect = canvas.getBoundingClientRect();
+    if (e.touches) {
+      return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect.top };
+    }
+    return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+  }
+
+  function findNearestStar(px, py) {
+    let best = -1, bestD = Infinity;
+    stars.forEach((s,i) => {
+      const d = Math.hypot(s.x-px, s.y-py);
+      if (d < bestD) { bestD=d; best=i; }
+    });
+    return bestD < 40 ? best : -1;
+  }
+
+  function handleMove(e) {
+    const pos = getPos(e);
+    mx = pos.x; my = pos.y;
+    const idx = findNearestStar(mx, my);
+    if (idx !== activeIdx) {
+      activeIdx = idx;
+      if (idx >= 0) {
+        const s = stars[idx];
+        qpGroup.textContent = s.group;
+        qpText.textContent = s.text;
+
+        const sr = canvas.getBoundingClientRect();
+        const px = Math.min(sr.left + s.x + 20, window.innerWidth - 360);
+        const py = Math.min(sr.top + s.y - 60, window.innerHeight - 120);
+        popup.style.left = px+'px';
+        popup.style.top = py+'px';
+        popup.classList.add('visible');
+      } else {
+        popup.classList.remove('visible');
+      }
+    }
+  }
+
+  canvas.addEventListener('mousemove', handleMove, {passive:true});
+  canvas.addEventListener('touchmove', e => { e.preventDefault(); handleMove(e); }, {passive:false});
+  canvas.addEventListener('mouseleave', () => { activeIdx=-1; popup.classList.remove('visible'); });
+
+  function drawFrame() {
+    ctx.clearRect(0,0,W,H);
+    time += 0.016;
+
+    // Draw constellation lines (connecting nearby stars of same group)
+    stars.forEach((s, i) => {
+      stars.forEach((s2, j) => {
+        if (j <= i) return;
+        if (s.group !== s2.group) return;
+        const d = Math.hypot(s.x-s2.x, s.y-s2.y);
+        if (d < 120) {
+          const alpha = (1 - d/120) * 0.12;
+          ctx.beginPath();
+          ctx.moveTo(s.x, s.y);
+          ctx.lineTo(s2.x, s2.y);
+          ctx.strokeStyle = `rgba(200,168,75,${alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.stroke();
+        }
+      });
+    });
+
+    // Draw stars
+    stars.forEach((s, i) => {
+      // Gentle breathing drift
+      s.angle += s.speed;
+      const breathe = Math.sin(time * 0.8 + s.phase) * 3;
+      s.x = s.cx + (s.dist + breathe) * Math.cos(s.angle);
+      s.y = s.cy + (s.dist + breathe) * Math.sin(s.angle);
+
+      const isActive = i === activeIdx;
+      const proximity = Math.max(0, 1 - Math.hypot(s.x-mx, s.y-my) / 100);
+      s.glow += (proximity - s.glow) * 0.1;
+
+      const r = s.baseR + s.glow * 8 + (isActive ? 6 : 0);
+      const alpha = 0.4 + s.glow * 0.5 + (isActive ? 0.4 : 0);
+
+      // Glow halo
+      if (s.glow > 0.01 || isActive) {
+        const grad = ctx.createRadialGradient(s.x,s.y,0,s.x,s.y,r*6);
+        const gc = isActive ? '232,0,61' : '200,168,75';
+        grad.addColorStop(0, `rgba(${gc},${s.glow*0.5 + (isActive?0.3:0)})`);
+        grad.addColorStop(1, 'rgba(0,0,0,0)');
+        ctx.beginPath();
+        ctx.arc(s.x,s.y,r*6,0,Math.PI*2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+
+      // Star point
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,r,0,Math.PI*2);
+      const gc2 = isActive ? 'rgba(232,0,61,' : 'rgba(240,237,232,';
+      ctx.fillStyle = gc2+alpha+')';
+      ctx.fill();
+    });
+
+    // Central pulse
+    const cp = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,60);
+    cp.addColorStop(0,'rgba(232,0,61,0.04)');
+    cp.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();
+    ctx.arc(W/2,H/2,60,0,Math.PI*2);
+    ctx.fillStyle=cp; ctx.fill();
+
+    requestAnimationFrame(drawFrame);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  drawFrame();
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// REVEAL OBSERVER
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+  // Re-observe after dynamic content
+  setTimeout(() => {
+    document.querySelectorAll('.reveal').forEach(el => {
+      if (!el.classList.contains('visible')) obs.observe(el);
+    });
+  }, 500);
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// NAV BURGER
+// ═══════════════════════════════════════════════════════════════════
+const burgerBtn = document.getElementById('burger-btn');
+const mobileNav = document.getElementById('mobile-nav');
+burgerBtn.addEventListener('click', () => {
+  const isOpen = mobileNav.classList.toggle('open');
+  burgerBtn.setAttribute('aria-expanded', isOpen);
+  const spans = burgerBtn.querySelectorAll('span');
+  if (isOpen) {
+    spans[0].style.transform = 'rotate(45deg) translate(4px,4px)';
+    spans[1].style.opacity = '0';
+    spans[2].style.transform = 'rotate(-45deg) translate(4px,-4px)';
+  } else { spans.forEach(s => { s.style.transform=''; s.style.opacity=''; }); }
+});
+function closeMobileNav() {
+  mobileNav.classList.remove('open');
+  burgerBtn.setAttribute('aria-expanded','false');
+  burgerBtn.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// GDPR
+// ═══════════════════════════════════════════════════════════════════
+(function() {
+  const banner = document.getElementById('cookie-banner');
+  const KEY = 'sinaida_cookie_consent';
+
+  function hideBanner() { banner.classList.remove('visible'); }
+
+  if (!localStorage.getItem(KEY)) {
+    setTimeout(() => banner.classList.add('visible'), 1500);
+  }
+
+  document.getElementById('cookie-accept').addEventListener('click', () => {
+    localStorage.setItem(KEY, 'all');
+    hideBanner();
+    showToast('Настройки сохранены');
+  });
+  document.getElementById('cookie-necessary').addEventListener('click', () => {
+    localStorage.setItem(KEY, 'necessary');
+    hideBanner();
+    showToast('Только необходимые cookies');
+  });
+  document.getElementById('reset-cookies').addEventListener('click', e => {
+    e.preventDefault();
+    localStorage.removeItem(KEY);
+    banner.classList.add('visible');
+    showToast('Настройки сброшены');
+  });
+  document.getElementById('open-cookies').addEventListener('click', e => {
+    e.preventDefault();
+    banner.classList.add('visible');
+  });
+  document.getElementById('open-privacy').addEventListener('click', e => {
+    e.preventDefault();
+    showToast('Политика: только технические cookies · нет рекламы · нет продажи данных');
+  });
+  document.getElementById('banner-policy-link').addEventListener('click', e => {
+    e.preventDefault();
+    showToast('Политика: только технические cookies · нет рекламы');
+  });
+})();
+
+// ═══════════════════════════════════════════════════════════════════
+// HERO REVEAL on load
+// ═══════════════════════════════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('#hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 300 + i * 150);
+  });
+});
+</script>
+</body>
+</html>
