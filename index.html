@@ -1125,6 +1125,37 @@
       background: linear-gradient(90deg, transparent, var(--red), transparent);
       opacity: 0.3;
     }
+    /* Click-to-load Spotify placeholder, same box as the player (152px, 12px radius) */
+    .spotify-gate {
+      height: 152px;
+      border-radius: 12px;
+      border: 1px solid var(--gray3);
+      background: var(--gray1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 0 1rem;
+      text-align: center;
+    }
+    .spotify-load {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid var(--red);
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .spotify-load:hover, .spotify-load:focus-visible { background: var(--red); outline: none; }
+    .spotify-note {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--gray5);
+    }
   </style>
 </head>
 <body>
@@ -1250,13 +1281,11 @@
     <p class="omt-desc reveal reveal-delay-2">
       Цифровое святилище. Двигай курсором или пальцем — звёзды хранят вопросы. Для неожиданного понимания себя.
     </p>
-    <div class="spotify-embed reveal reveal-delay-3">
-      <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/1Nke8m1Yp3jYJynGS3rKyZ?utm_source=generator&theme=0"
-        width="100%" height="152" frameBorder="0" allowfullscreen=""
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy" title="Плейлист для вопросов к себе">
-      </iframe>
+    <div class="spotify-embed reveal reveal-delay-3" id="spotify-embed">
+      <div class="spotify-gate">
+        <button type="button" class="spotify-load" id="spotify-load">Play the playlist on Spotify</button>
+        <p class="spotify-note">Loads Spotify's player, which receives your IP address.</p>
+      </div>
     </div>
   </div>
 
@@ -1306,7 +1335,7 @@
   <div class="footer-bottom">
     <p class="footer-copy">© 2026 sin.ai.da Creative Systems · Sinaida Krivchenko</p>
     <div class="footer-legal-links">
-      <a href="#" id="open-privacy">Политика конфиденциальности</a>
+      <a href="privacy.html" id="open-privacy">Приватность</a>
       <a href="#" id="open-cookies">Cookie-политика</a>
       <a href="#" id="reset-cookies">Сбросить настройки</a>
     </div>
@@ -1316,8 +1345,8 @@
 <!-- ═══════════════════════════════════════════════════════ GDPR COOKIE BANNER -->
 <div id="cookie-banner" role="dialog" aria-label="Настройки cookies" aria-modal="false">
   <p class="cookie-text">
-    Этот сайт использует только необходимые технические cookies. Никакой рекламы, никакой продажи данных.
-    <a href="#" id="banner-policy-link">Подробнее</a>
+    Сайт не&nbsp;ставит cookies и&nbsp;не&nbsp;ведёт аналитику. В&nbsp;браузере хранится только отметка, что вы закрыли это&nbsp;окно.
+    <a href="privacy.html" id="banner-policy-link">Подробнее</a>
   </p>
   <div class="cookie-actions">
     <button class="cookie-btn necessary" id="cookie-necessary" aria-label="Принять только необходимые cookies">Только необходимые</button>
@@ -1326,6 +1355,21 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════ Three.js -->
+<script>
+  // Inserts the Spotify player only after the visitor clicks the button.
+  document.getElementById('spotify-load').addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.style.borderRadius = '12px';
+    f.src = 'https://open.spotify.com/embed/playlist/1Nke8m1Yp3jYJynGS3rKyZ?utm_source=generator&theme=0';
+    f.width = '100%';
+    f.height = '152';
+    f.setAttribute('frameBorder', '0');
+    f.setAttribute('allowfullscreen', '');
+    f.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+    f.title = 'Плейлист для вопросов к себе';
+    document.getElementById('spotify-embed').replaceChildren(f);
+  });
+</script>
 <script src="vendor/three.min.js"></script>
 
 <script>
@@ -2346,14 +2390,6 @@ function closeMobileNav() {
   document.getElementById('open-cookies').addEventListener('click', e => {
     e.preventDefault();
     banner.classList.add('visible');
-  });
-  document.getElementById('open-privacy').addEventListener('click', e => {
-    e.preventDefault();
-    showToast('Политика: только технические cookies · нет рекламы · нет продажи данных');
-  });
-  document.getElementById('banner-policy-link').addEventListener('click', e => {
-    e.preventDefault();
-    showToast('Политика: только технические cookies · нет рекламы');
   });
 })();
 
